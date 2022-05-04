@@ -1,0 +1,7 @@
+{
+  "name": "sgta_scraping",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

@@ -9,7 +9,7 @@ import queryString from 'query-string'
 const Sarrera: React.FC = () => {
   const location = useLocation();
   const query = (queryString.parse(location.search));
-  const input = queryString.stringify(query);
+  const input = (queryString.stringify(query)).split('=')[1];
   return (
     <IonPage>
       <IonHeader>
@@ -25,10 +25,10 @@ const Sarrera: React.FC = () => {
         </IonHeader>
         <form className='search-form'  method='GET'>
           <IonLabel position="floating">Search</IonLabel>
-          <IonInput placeholder="URLa idatzi"></IonInput>
+          <IonInput value={'https://www.'} placeholder="URLa idatzi"></IonInput>
           <IonButton type="submit" color="primary" expand="block">Bilatu</IonButton>
           </form>
-          <h1>Id:</h1>
+          <h1>URL: {input}</h1>
       </IonContent>
     </IonPage>
   );

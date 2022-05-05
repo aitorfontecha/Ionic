@@ -12,7 +12,6 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle, home } from 'ionicons/icons';
 import Sarrera from './pages/Sarrera';
-import Bilaketa from './pages/Bilaketa';
 
 
 /* Core CSS required for Ionic components to work properly */

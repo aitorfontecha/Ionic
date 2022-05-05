@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 
 const Sarrera: React.FC = () => {
-    let [searchParams, setSearchParams] = useSearchParams();
-    let input = searchParams.get('ion-input-0');
+let params = (new URL(document.location)).searchParams;
+let name = params.get('name'); // is the string "Jonathan Smith".
   return (
     <IonPage>
       <IonHeader>
@@ -20,8 +20,8 @@ const Sarrera: React.FC = () => {
             <IonTitle size="large">SGTA Scraping</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <form className='search-form' method='GET'>
-          <IonLabel position="floating">Bilatu</IonLabel>
+        <form className='search-form'  method='GET'>
+          <IonLabel position="floating">Search</IonLabel>
           <IonInput placeholder="URLa idatzi"></IonInput>
           <IonButton type="submit" color="primary" expand="block">Bilatu</IonButton>
           </form>

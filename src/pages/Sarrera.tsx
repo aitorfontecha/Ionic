@@ -28,7 +28,7 @@ const Sarrera: React.FC = () => {
           <IonInput value={'https://www.'} placeholder="URLa idatzi"></IonInput>
           <IonButton type="submit" color="primary" expand="block">Bilatu</IonButton>
           </form>
-          <h1>URL: {input}</h1>
+          <h1>URL: {decodeURIComponent(input)}</h1>
       </IonContent>
     </IonPage>
   );

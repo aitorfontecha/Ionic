@@ -2,11 +2,14 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, Ion
 import ExploreContainer from '../components/ExploreContainer';
 import './Sarrera.css';
 import React, { useState } from 'react';
-import { useSearchParams } from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import queryString from 'query-string'
+
 
 const Sarrera: React.FC = () => {
-let params = (new URL(document.location)).searchParams;
-let name = params.get('name'); // is the string "Jonathan Smith".
+  const location = useLocation();
+  const query = (queryString.parse(location.search));
+  const input = queryString.stringify(query);
   return (
     <IonPage>
       <IonHeader>
@@ -25,7 +28,7 @@ let name = params.get('name'); // is the string "Jonathan Smith".
           <IonInput placeholder="URLa idatzi"></IonInput>
           <IonButton type="submit" color="primary" expand="block">Bilatu</IonButton>
           </form>
-        <IonLabel></IonLabel>
+          <h1>Id:</h1>
       </IonContent>
     </IonPage>
   );

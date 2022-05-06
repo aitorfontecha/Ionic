@@ -16,6 +16,7 @@ import Sarrera from './pages/Sarrera';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
+import '@ionic/core/css/ionic.bundle.css';
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';

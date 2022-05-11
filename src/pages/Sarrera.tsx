@@ -24,14 +24,11 @@ const Sarrera: React.FC = () => {
 
   const sendRequest = () => {
     return axios
-      .get('https://dummyapi.io/data/v1/user', {
+      .get('localhost:3000/analyze/'+useQuery(), {
         headers: {
           'app-id': '6274f13cf874aa56c8903879',
           'Content-Type': 'application/json',
         },
-        params: {
-          'url': useQuery()
-        }
       })
       .then((response) => {
         return response.data;

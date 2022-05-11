@@ -27,11 +27,10 @@ return axios
     .get('https://dummyapi.io/data/v1/user',{
      headers:{
               'app-id':'6274f13cf874aa56c8903879',
-              'Content-Type' : 'application/json'
+              'Content-Type' : 'application/json',
 },
-})
+},)
 .then((response) => {
-console.log(response);
 return response.data;
 })
 };

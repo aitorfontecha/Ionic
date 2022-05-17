@@ -21,10 +21,9 @@ const Sarrera: React.FC = () => {
       setListItems(data.data)
     });
   }, []);
-
   const sendRequest = () => {
     return axios
-      .get('localhost:3000/analyze/'+useQuery(), {
+      .get('localhost:3000/analyze/google.com', {
         headers: {
           'app-id': '6274f13cf874aa56c8903879',
           'Content-Type': 'application/json',
@@ -54,11 +53,8 @@ const Sarrera: React.FC = () => {
             listItems.map((item: any) => {
               return (
                 <IonItem key={item.id}>
-                  <IonAvatar slot="start">
-                    <IonImg src={item['picture']} />
-                  </IonAvatar>
                   <IonLabel>
-                    <h3> {item['firstName']} {item['lastName']} </h3>
+                    <h3> {item['pa11y']} </h3>
                   </IonLabel>
                 </IonItem>
               );

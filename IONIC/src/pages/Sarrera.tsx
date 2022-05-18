@@ -15,21 +15,22 @@ const Sarrera: React.FC = () => {
       return decodeURIComponent(input);
     }
   }
-  const [listItems, setListItems] = useState<any>([]);
+  const [items, setItems] = React.useState([]);
   React.useEffect(() => {
     sendRequest().then(data => {
-      setListItems(data.data)
+      console.log(data);
+      setItems(data);
     });
   }, []);
   const sendRequest = () => {
-    return axios
-      .get('localhost:3000/analyze/google.com', {
-        headers: {
-          'app-id': '6274f13cf874aa56c8903879',
-          'Content-Type': 'application/json',
-        },
+    console.log('requesting....')
+    return axios(
+      {
+        url:'http://192.168.0.18:3000/analyze/google.com',
+        method: 'get'
       })
       .then((response) => {
+        console.log('requested!!');
         return response.data;
       })
   };
@@ -50,16 +51,16 @@ const Sarrera: React.FC = () => {
         <h1>URL: {useQuery()}</h1>
         <IonList color="primary">
           {
-            listItems.map((item: any) => {
+            items.map(item =>{
               return (
-                <IonItem key={item.id}>
+                <IonItem>
                   <IonLabel>
-                    <h3> {item['pa11y']} </h3>
+                    <h3> {item['criteria']} </h3>
                   </IonLabel>
                 </IonItem>
               );
             })
-          }
+          } 
         </IonList>
       </IonContent>
     </IonPage>

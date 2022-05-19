@@ -6,10 +6,15 @@ const app = express()
 const AxeBuilder = require('@axe-core/webdriverjs');
 const WebDriver = require('selenium-webdriver');
 const cors = require('cors');
+require('chromedriver');
 
 app.use(cors())
 app.set('json spaces', 2)
-const driver = new WebDriver.Builder().forBrowser('chrome').build()
+var webdriver = require('selenium-webdriver');
+var driver = new webdriver.Builder()
+  .forBrowser('chrome')
+  .build();
+//const driver = new WebDriver.Builder().forBrowser('chrome').build()
 
 app.get('/analyze/:site/', function (req, res) {
     res.setHeader('Content-Type','application/json')

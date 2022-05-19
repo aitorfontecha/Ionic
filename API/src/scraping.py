@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import sys
 import json
+import threading, queue
 
 aChecker = "https://achecker.achecks.ca/checker/index.php"
 accessMonitor = "https://accessmonitor.acessibilidade.gov.pt/"
@@ -32,7 +33,8 @@ def setSiteToAnalize():
     return address
     
 
-def aCheckerAnalisis(driver, address):
+def aCheckerAnalisis(address, queue):
+    driver = configDriver()
     driver.get(aChecker)
     driver.find_element(by=By.ID,value="checkuri").send_keys(address)
     driver.find_element(by=By.ID,value="validate_uri").click()
@@ -114,9 +116,10 @@ def aCheckerAnalisis(driver, address):
                             x['source'].append("AChecker")
                         break
                 #potentia_problems_AC[criteria.split(' ',2)[2]] = [html]
-    return criteriaArray
+    queue.put(criteriaArray)
 
-def accessMonitorAnalisis(driver, address):
+def accessMonitorAnalisis(address, queue):
+    driver = configDriver()
     driver.get(accessMonitor)
     driver.find_element(by=By.XPATH, value='//button[@lang="en"]').click()
     driver.find_element(by=By.ID, value="url").send_keys(address)
@@ -188,7 +191,7 @@ def accessMonitorAnalisis(driver, address):
                             break
                 # warnings_PC[cr_p.replace(" ", f" {criteriaJSON[ cr_p.split()[0]]} ")] = locations if locations else []
     
-    return criteriaArray
+    queue.put(criteriaArray)
 
 def getElementLocationPC(driver, elem):
     locations = []
@@ -202,18 +205,25 @@ def getElementLocationPC(driver, elem):
 
 
 if __name__ == "__main__":
-
     address = sys.argv[1]
     
     response = []
 
-    driver = configDriver()
-
     # address = setSiteToAnalize()
 
-    criteriaArrayAC = aCheckerAnalisis(driver, address)
+    aCheckerQueue = queue.Queue()
+    accessMonitorQueue = queue.Queue()
 
-    criteriaArrayAM = accessMonitorAnalisis(driver, address)
+    t1 = threading.Thread(target=aCheckerAnalisis, args=(address,aCheckerQueue))
+    t2 = threading.Thread(target=accessMonitorAnalisis, args=(address,accessMonitorQueue))
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+    criteriaArrayAC = aCheckerQueue.get()
+
+    criteriaArrayAM = accessMonitorQueue.get()
 
     for cr in criteriaArrayAC + criteriaArrayAM:
         if not any(x['criteria'] == cr['criteria'] and x['type'] == cr['type'] for x in response):

@@ -26,7 +26,7 @@ const Sarrera: React.FC = () => {
     console.log('requesting....')
     return axios(
       {
-        url:'http://192.168.0.18:3000/analyze/google.com',
+        url:'http://127.0.0.1:3000/analyze/google.com',
         method: 'get'
       })
       .then((response) => {

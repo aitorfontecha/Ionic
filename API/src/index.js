@@ -4,23 +4,37 @@ const spawn = require("child_process").spawn;
 const express = require('express')
 const app = express()
 const AxeBuilder = require('@axe-core/webdriverjs');
-const WebDriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
 const cors = require('cors');
 require('chromedriver');
 
+
+const screen = {
+    width: 1920,
+    height: 1080
+};
+  
+const driver = new webdriver.Builder()
+.forBrowser('chrome')
+.setChromeOptions(new chrome.Options().headless().windowSize(screen))
+.build();
+
+// const driver = new webdriver.Builder()
+// .forBrowser('chrome')
+// .build();
+
+
+//const driver = new WebDriver.Builder().forBrowser('chrome').build()
+
 app.use(cors())
 app.set('json spaces', 2)
-var webdriver = require('selenium-webdriver');
-var driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .build();
-//const driver = new WebDriver.Builder().forBrowser('chrome').build()
+app.listen(3000)
 
 app.get('/analyze/:site/', function (req, res) {
     res.setHeader('Content-Type','application/json')
-    let analysis = {'pa11y':{},'axe':{},'python':{}}
-    let respArray = [];
     let webpage = req.params['site']
+    let analysis = [];
 
     driver.get(`https://${webpage}`).then(() => {
         new AxeBuilder(driver).options({
@@ -39,31 +53,28 @@ app.get('/analyze/:site/', function (req, res) {
                     let nodes = violation['nodes'];
                     tags.forEach((element,index) => {
                         let num = element.substring(4).split('').join('.');
-                        let criteria = num + ' ' +criteriaFile[num];
+                        let criteria = num + ' ' +criteriaFile[num].name;
                         let html = [];
                         nodes.forEach(node => {
                             html.push(node['html']);
                         });
-                        //console.log(element);
-                        //console.log(html);
-                        if (!respArray.filter (el =>{ return (el.criteria === criteria & el.type === 'error')}).length){
-                            respArray.push({
+                        if (!analysis.filter (el =>{ return (el.criteria === criteria & el.type === 'error')}).length){
+                            analysis.push({
                                 "criteria":criteria,
+                                "level": criteriaFile[num].level,
+                                "link":criteriaFile[num].link,
                                 "html":html,
                                 "type":"error",
                                 "source":["axe"]
                             })
                         } else {
-                            //console.log(html);
-                            respArray.find(item => item.criteria === criteria).html.push(...html)
-                            if(!respArray.find(item => item.criteria === criteria).source.includes('axe')){
-                                respArray.find(item => item.criteria === criteria).source.push('axe')
+                            analysis.find(item => item.criteria === criteria).html.push(...html)
+                            if(!analysis.find(item => item.criteria === criteria).source.includes('axe')){
+                                analysis.find(item => item.criteria === criteria).source.push('axe')
                             }
                         }
                     });
                 });
-                //console.log(respArray);
-                // analysis['axe'] = axe_local_vioaltions
             });
         });
     });
@@ -76,67 +87,53 @@ app.get('/analyze/:site/', function (req, res) {
 
 
             pythonArray.forEach(cr => {
-                if (!respArray.filter (el =>{ return (el.criteria === cr.criteria & el.type === cr.type)}).length){
-                    respArray.push(cr)
+                if (!analysis.filter (el =>{ return (el.criteria === cr.criteria & el.type === cr.type)}).length){
+                    analysis.push(cr)
                 } else {
-                    //console.log(html);
-                    respArray.find(item => item.criteria === cr.criteria).html.push(...cr.html)
-                    respArray.find(item => item.criteria === cr.criteria).html = [...new Set(respArray.find(item => item.criteria === cr.criteria).html)];
+                    analysis.find(item => item.criteria === cr.criteria).html.push(...cr.html)
+                    analysis.find(item => item.criteria === cr.criteria).html = [...new Set(analysis.find(item => item.criteria === cr.criteria).html)];
 
-                    respArray.find(item => item.criteria === cr.criteria).source.push(...cr.source)
-                    respArray.find(item => item.criteria === cr.criteria).source = [...new Set(respArray.find(item => item.criteria === cr.criteria).source)];
+                    analysis.find(item => item.criteria === cr.criteria).source.push(...cr.source)
+                    analysis.find(item => item.criteria === cr.criteria).source = [...new Set(analysis.find(item => item.criteria === cr.criteria).source)];
                 }
             });
             
-            // analysis['python'] = JSON.parse(data)
-            respArray.sort((a, b) => (a.type > b.type) ? 1 : (a.type === b.type) ? ((a.criteria > b.criteria) ? 1 : -1) : -1 )
-            console.log(respArray);
-            res.json(respArray)
+            analysis.sort((a, b) => (a.type > b.type) ? 1 : (a.type === b.type) ? ((a.criteria > b.criteria) ? 1 : -1) : -1 )
+            console.log(analysis);
+            res.json(analysis)
         })  
     })
 
     pa11y(webpage).then((results) => {
-        //console.log(results);
         fs.readFile('./criteria.json',(err, data)=>{
             let criteriaFile = JSON.parse(data)
-            // console.log(criteria)
             let localData = new Map()
             results.issues.forEach(element => {
                 let issueType = element.type;
                 let principle = element.code.replace('Principle','').split('.')[1]+'.'
                 let code = element.code.split('_')[1]
-                let criteria = principle+code+' '+criteriaFile[principle+code]
+                let criteria = principle+code+' '+criteriaFile[principle+code].name
                 let html = element.context
 
-                if (!respArray.filter (el =>{ return el.criteria === criteria & el.type === issueType}).length){
-                    respArray.push({
+                if (!analysis.filter (el =>{ return el.criteria === criteria & el.type === issueType}).length){
+                    analysis.push({
                         "criteria":criteria,
+                        "level":criteriaFile[principle+code].level,
+                        "link": criteriaFile[principle +code].link,
                         "html":[html],
                         "type": issueType,
                         "source":["pa11y"]
                     })
                 } else {
-                    respArray.find(item => item.criteria === criteria).html.push(html)
-                    if(!respArray.find(item => item.criteria === criteria).source.includes('pa11y')){
-                        respArray.find(item => item.criteria === criteria).source.push('pa11y')
+                    analysis.find(item => item.criteria === criteria).html.push(html)
+                    if(!analysis.find(item => item.criteria === criteria).source.includes('pa11y')){
+                        analysis.find(item => item.criteria === criteria).source.push('pa11y')
                     }
                 }
-
-
-
-
-
-                // if(localData[wholeCode+' '+criteriaFile[wholeCode]]!=null){
-                //     localData[wholeCode+' '+criteriaFile[wholeCode]].push(context)
-                // }else{
-                //     localData[wholeCode+' '+criteriaFile[wholeCode]]=[context]
-                // }
             });
-            // analysis['pa11y'] = localData
         });
     });
     
     
 })
         
-app.listen(3000)

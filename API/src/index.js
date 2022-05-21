@@ -35,50 +35,7 @@ app.get('/analyze/:site/', function (req, res) {
     res.setHeader('Content-Type','application/json')
     let webpage = req.params['site']
     let analysis = [];
-
-    driver.get(`https://${webpage}`).then(() => {
-        new AxeBuilder(driver).options({
-            runOnly: {
-                type: 'tag',
-                values: ['wcag2a','wcag2aa','wcag2aaa']
-            }
-        }).analyze((err, results) => {
-            fs.readFile('./criteria.json',(err, data) => {
-                let criteriaFile = JSON.parse(data)
-                let axe_violations = results.violations;
-                let axe_local_vioaltions = new Map();
-
-                axe_violations.forEach(violation => {
-                    let tags = violation['tags'].filter(value => /^wcag[0-9]{2,3}/.test(value));
-                    let nodes = violation['nodes'];
-                    tags.forEach((element,index) => {
-                        let num = element.substring(4).split('').join('.');
-                        let criteria = num + ' ' +criteriaFile[num].name;
-                        let html = [];
-                        nodes.forEach(node => {
-                            html.push(node['html']);
-                        });
-                        if (!analysis.filter (el =>{ return (el.criteria === criteria & el.type === 'error')}).length){
-                            analysis.push({
-                                "criteria":criteria,
-                                "level": criteriaFile[num].level,
-                                "link":criteriaFile[num].link,
-                                "html":html,
-                                "type":"error",
-                                "source":["axe"]
-                            })
-                        } else {
-                            analysis.find(item => item.criteria === criteria).html.push(...html)
-                            if(!analysis.find(item => item.criteria === criteria).source.includes('axe')){
-                                analysis.find(item => item.criteria === criteria).source.push('axe')
-                            }
-                        }
-                    });
-                });
-            });
-        });
-    });
-
+    
     fs.readFile('./config.json',(err, data)=>{
         let script = JSON.parse(data)['scripts']['python_scraping']
         const pythonProcess = spawn('python',[script, webpage]);
@@ -103,6 +60,56 @@ app.get('/analyze/:site/', function (req, res) {
             res.json(analysis)
         })  
     })
+    
+    driver.get(`https://${webpage}`).then(() => {
+        new AxeBuilder(driver).options({
+            runOnly: {
+                type: 'tag',
+                values: ['wcag2a','wcag2aa','wcag2aaa']
+            }
+        }).analyze((err, results) => {
+            fs.readFile('./criteria.json',(error, data) => {
+                if (err) {
+                
+                } else {
+                    
+                    let criteriaFile = JSON.parse(data)
+                    console.log(results);
+                    let axe_violations = results.violations;
+                    let axe_local_vioaltions = new Map();
+                    
+                    axe_violations.forEach(violation => {
+                        let tags = violation['tags'].filter(value => /^wcag[0-9]{2,3}/.test(value));
+                        let nodes = violation['nodes'];
+                        tags.forEach((element,index) => {
+                            let num = element.substring(4).split('').join('.');
+                            let criteria = num + ' ' +criteriaFile[num].name;
+                            let html = [];
+                            nodes.forEach(node => {
+                                html.push(node['html']);
+                            });
+                            if (!analysis.filter (el =>{ return (el.criteria === criteria & el.type === 'error')}).length){
+                                analysis.push({
+                                    "criteria":criteria,
+                                    "level": criteriaFile[num].level,
+                                    "link":criteriaFile[num].link,
+                                    "html":html,
+                                    "type":"error",
+                                    "source":["axe"]
+                                })
+                            } else {
+                                analysis.find(item => item.criteria === criteria).html.push(...html)
+                                if(!analysis.find(item => item.criteria === criteria).source.includes('axe')){
+                                    analysis.find(item => item.criteria === criteria).source.push('axe')
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    });
+
 
     pa11y(webpage).then((results) => {
         fs.readFile('./criteria.json',(err, data)=>{

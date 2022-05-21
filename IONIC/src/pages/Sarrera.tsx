@@ -1,67 +1,239 @@
-import { IonContent, IonAvatar, IonImg, IonHeader, IonList, IonCardHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonFooter, IonItem, IonLabel, IonInput, IonButton } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Sarrera.css';
+import { IonContent, IonAvatar, IonSpinner, IonImg, IonIcon, IonThumbnail, IonHeader, IonList, IonListHeader,IonCardHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonFooter, IonItem, IonLabel, IonInput, IonButton, IonAccordionGroup, IonAccordion, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, IonButtons, IonCard, IonCardSubtitle, IonCardTitle, IonCardContent} from '@ionic/react';
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
-import queryString from 'query-string'
 import axios from 'axios';
+import error from '../assets/error.svg'
+import warning from '../assets/warning.svg'
+import link from '../assets/link.svg'
+import analyse from '../assets/analyse.svg'
+import loadingGif from '../assets/loading.gif'
+import analysingGif from '../assets/analysing.gif'
+import { search } from 'ionicons/icons';
 
 const Sarrera: React.FC = () => {
-  //useQuery() returns a string with the query parameters of the URL
-  function useQuery() {
-    const query = queryString.parse(useLocation().search);
-    const input = (queryString.stringify(query)).split('=')[1];
-    if (input) {
-      return decodeURIComponent(input);
+
+  function getUrl() {
+    let queryParams = new URLSearchParams(window.location.search);
+    let site = queryParams.get('site');
+    console.log(site);
+    if (site) {
+      return site.replace('http[s]+://','')
     }
   }
-  const [items, setItems] = React.useState([]);
+
+
+  const [items, setItems] = React.useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   React.useEffect(() => {
-    sendRequest().then(data => {
-      console.log(data);
-      setItems(data);
-    });
+    if (getUrl()) {
+      sendRequest()
+    }
   }, []);
-  const sendRequest = () => {
-    console.log('requesting....')
-    return axios(
-      {
-        url:'http://127.0.0.1:3000/analyze/google.com',
-        method: 'get'
-      })
-      .then((response) => {
-        console.log('requested!!');
-        return response.data;
-      })
+
+  const sendRequest = async () => {
+    try {
+      console.log('requesting....')
+      setLoading(true);
+      const data = await axios
+        .get(`http://192.168.0.11:3000/analyze/${getUrl()}/`)
+        .then(res => {
+          console.log('requested!!');
+          console.log(res);
+          setItems(res.data)
+        });
+        setLoading(false);
+    } catch (e)
+    {
+      console.log(e);
+      setLoading(false);
+    }
   };
+
+  function isError(criteria:any){
+    if (criteria.type === 'error') {
+      return (
+        <img src={error} />
+      )
+    } else {
+      return(
+        <img src={warning}/>
+      )
+    }
+  }
+
+  function elementNumber(){
+    let number = 0
+    for (var i=0; i < items.length; i++) {
+      for (var j=0; j < items[i].html.length; j++) {
+        number++;
+      }
+    }
+    return number
+  }
+
+  function sources(criteria:any){
+    let str = ''
+    criteria.source.forEach((element:any, index:any) => {
+      if (index + 1 === criteria.source.length && criteria.source.length != 1) {
+        str += ' and '+ element
+      } else if (index + 2 === criteria.source.length || criteria.source.length === 1) {
+        str += element
+      }
+      else {
+        str += element + ', '
+      }
+    });
+    return str
+  }
+
+function render(){
+  if (getUrl()){
+    if(items.length){
+      return(
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+             
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+            <IonCard>
+              <IonCardHeader>
+                <IonCardTitle> <h1>Analysed page: <a style={{textDecoration: 'none'}} href={"https://"+getUrl()} target="_blank"><IonText color='primary'>{getUrl()}</IonText></a></h1></IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                {elementNumber()}
+              </IonCardContent>
+            </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>
+                    <h1>Evaluation</h1>
+                  </IonCardTitle>
+                  <IonList>
+                    <IonAccordionGroup>
+                      {
+                        items.map(item =>{
+                          return (
+                            <IonAccordion value={item['criteria']}>
+                              <IonItem slot='header'>
+                                  <IonThumbnail slot='start'>
+                                    {isError(item)}
+                                  </IonThumbnail>
+                                  <IonGrid>
+                                    <IonRow>
+                                      <IonCol>
+                                        <IonText><h5>{item['criteria']}</h5></IonText>
+                                      </IonCol>
+                                      <IonCol>
+                                        <h5>Level: {item.level}</h5>
+                                      </IonCol>
+                                      <IonCol>
+                                        <h5>Sources: {' ' + sources(item)}</h5>
+                                      </IonCol>
+                                    </IonRow>
+                                  </IonGrid>
+                                  <IonThumbnail slot='end'>
+                                    <IonGrid>
+                                      <IonRow>
+                                        <IonCol>
+                                          <a href={item.link} target="_blank"><IonImg src={link}/></a>
+                                        </IonCol>
+                                      </IonRow>
+                                    </IonGrid>
+                                  </IonThumbnail>
+                              </IonItem>
+                              <IonList slot="content" lines='inset' inset={true}>
+                                <IonListHeader lines='inset'>
+                                  <IonText><h4>Elements</h4></IonText>
+                                </IonListHeader>
+                                {item.html.map((node:any)=>{
+                                  return(
+                                    <IonItem>
+                                      <IonText>{node}</IonText>
+                                    </IonItem>
+                                  )
+                                })}
+                              </IonList>
+                            </IonAccordion>
+                          );
+                        })
+                      } 
+                    </IonAccordionGroup>
+                  </IonList>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      )
+    } else {
+      return (
+        <IonGrid>
+          <IonRow>
+            <IonCol class="ion-text-center">
+              <IonText><h1>We are sorry, something went wrong with the API. Try again later or try analysing a different page.</h1></IonText>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      )
+    }
+  } else {
+    return (
+      <IonGrid>
+          <IonRow>
+            <IonCol class="ion-text-center">
+                <h1>Enter a webpage to analyse its accessibility</h1>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        )
+  }
+}
 
   return (
     <IonPage>
-      <IonCardHeader>
-        <IonToolbar color='primary'>
-          <IonTitle size='large' >SGTA Scraping</IonTitle>
-        </IonToolbar>
-      </IonCardHeader>
       <IonContent>
+        <IonCardHeader>
+          <IonToolbar color='primary'>
+            <IonButtons slot='start'>
+            <IonButton href='/'>
+            <img src={analyse} height='35px'></img>
+            </IonButton>
+            </IonButtons>
+            <IonTitle>SGTA Scraping</IonTitle>
+          </IonToolbar>
+        </IonCardHeader>
         <form className='search-form' method='GET'>
-          <IonLabel position="floating">Search</IonLabel>
-          <IonInput value={'https://www.'} placeholder="URLa idatzi"></IonInput>
-          <IonButton type="submit" color="primary" expand="block">Bilatu</IonButton>
+          <IonItem>
+            <h3><IonLabel><IonText color='primary'>Web page</IonText></IonLabel></h3>
+            <h3><IonInput name='site' placeholder="http(s)://" type="text"></IonInput></h3>
+            <IonButton type="submit" color="primary" expand="block" slot='end' size="default">
+              <IonIcon icon={search} slot='end'></IonIcon>
+              Analyse
+            </IonButton>
+          </IonItem>
         </form>
-        <h1>URL: {useQuery()}</h1>
-        <IonList color="primary">
-          {
-            items.map(item =>{
-              return (
-                <IonItem>
-                  <IonLabel>
-                    <h3> {item['criteria']} </h3>
-                  </IonLabel>
-                </IonItem>
-              );
-            })
-          } 
-        </IonList>
+        {loading ? 
+          <IonGrid>
+            <IonRow class='ion-justify-content-center ion-align-items-center'>
+              <IonCol class="ion-text-center ion-margin-top">
+                <img src={loadingGif} height='100px'></img>
+              </IonCol>
+            </IonRow>
+            <IonRow class='ion-justify-content-center ion-align-items-center'>
+              <IonCol class="ion-text-center">
+                  <img src={analysingGif} width='200px'></img>
+              </IonCol>
+            </IonRow>
+          </IonGrid> 
+          :
+          render()  
+        }
       </IonContent>
     </IonPage>
   );

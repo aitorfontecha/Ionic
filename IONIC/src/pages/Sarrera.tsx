@@ -57,7 +57,7 @@ const Sarrera: React.FC = () => {
       setLoading(true);
   
       const data = await axios
-        .get(`http://192.168.0.11:3000/analyze/${getUrl()}/`)
+        .get(`http://127.0.0.1:3000/analyze/${getUrl()}/`)
         .then(res => {
           console.log('requested!!');
           console.log(res);

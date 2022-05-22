@@ -39,7 +39,7 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
+
         <IonRouterOutlet>
           <Route exact path="/Sarrera">
             <Sarrera />
@@ -48,13 +48,8 @@ const App: React.FC = () => (
             <Redirect to="/Sarrera" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="Sarrera" href="/">
-            <IonIcon icon={home} />
-            <IonLabel>Sarrera</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+        
+
     </IonReactRouter>
   </IonApp>
 );

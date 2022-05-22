@@ -5,3 +5,83 @@
     align-items: center;
     width: 50%;
   }
+
+.error {
+  color: #f06565;
+}
+
+.warning {
+  color: #e59f54;
+}
+
+.stickybar{
+  position: fixed !important;
+}
+
+.correct{
+  color: rgb(127, 231, 127)
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideOutFromTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(120%);
+  }
+}
+
+.animatedEvaluation {  
+  animation: 0.75s ease-out 0s 1 slideInFromTop;  
+  padding: 30px;
+}
+
+.coverEvaluation {
+  animation: 0.75s ease-out 0s 1 slideOutFromTop;  
+  padding: 30px;
+}
+
+@keyframes slideInFromTopLoading {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideOutFromTopLoading {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animatedLoading {  
+  animation: 0.25s ease-out 0s 1 slideInFromTopLoading;  
+  padding: 30px;
+}
+
+.coverLoading {
+  animation: 0.25s ease-out 0s 1 slideOutFromTopLoading;  
+  padding: 30px;
+}
+
+
+
+ion-content{
+  --ion-background-color:aliceblue;
+} 
+
+ion-grid{
+  --ion-background-color: white;
+}

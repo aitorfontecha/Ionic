@@ -30,7 +30,7 @@ const driver = new webdriver.Builder()
 
 app.use(cors())
 app.set('json spaces', 2)
-app.listen(3000)
+app.listen(3000, () => console.log('App available on http://localhost:3000'))
 
 app.get('/analyze/:site/', function (req, res) {
     try {
@@ -45,6 +45,9 @@ app.get('/analyze/:site/', function (req, res) {
             let script = JSON.parse(data)['scripts']['python_scraping']
             const pythonProcess = spawn('python',[script, webpage]);
             pythonProcess.stdout.on('data', (data) => { 
+                // fs.writeFileSync('./testPy.json','test')
+                // console.log(String.fromCharCode.apply(null, data));
+                // fs.writeFileSync('./testPy.json', String.fromCharCode.apply(null, data));
                 try {
                     pythonArray = JSON.parse(data.toString());
                     analysis.score = pythonArray.score
@@ -115,12 +118,12 @@ app.get('/analyze/:site/', function (req, res) {
                                         "link":criteriaFile[num].link,
                                         "html":html,
                                         "type":"error",
-                                        "source":["axe"]
+                                        "source":["axe-core"]
                                     })
                                 } else {
                                     analysis.evaluation.find(item => item.criteria === criteria).html.push(...html)
-                                    if(!analysis.evaluation.find(item => item.criteria === criteria).source.includes('axe')){
-                                        analysis.evaluation.find(item => item.criteria === criteria).source.push('axe')
+                                    if(!analysis.evaluation.find(item => item.criteria === criteria).source.includes('axe-core')){
+                                        analysis.evaluation.find(item => item.criteria === criteria).source.push('axe-core')
                                     }
                                 }
                             });
@@ -157,12 +160,12 @@ app.get('/analyze/:site/', function (req, res) {
                                 "link": criteriaFile[principle +code].link,
                                 "html":[html],
                                 "type": issueType,
-                                "source":["pa11y"]
+                                "source":["Pa11y"]
                             })
                         } else {
                             analysis.evaluation.find(item => item.criteria === criteria).html.push(html)
-                            if(!analysis.evaluation.find(item => item.criteria === criteria).source.includes('pa11y')){
-                                analysis.evaluation.find(item => item.criteria === criteria).source.push('pa11y')
+                            if(!analysis.evaluation.find(item => item.criteria === criteria).source.includes('Pa11y')){
+                                analysis.evaluation.find(item => item.criteria === criteria).source.push('Pa11y')
                             }
                         }
                     }

@@ -1,4 +1,3 @@
-from inspect import stack
 from selenium import webdriver
 from selenium.webdriver.common.by import By 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -6,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import sys
 import json
 import threading, queue
-import traceback
 
 aChecker = "https://achecker.achecks.ca/checker/index.php"
 accessMonitor = "https://accessmonitor.acessibilidade.gov.pt/"
@@ -38,92 +36,97 @@ def setSiteToAnalize():
 def aCheckerAnalisis(address, queue):
     # print('empieza ac \n')
     driver = configDriver()
-    driver.get(aChecker)
-    driver.find_element(by=By.ID,value="checkuri").send_keys(address)
-    driver.find_element(by=By.ID,value="validate_uri").click()
     criteriaArray = []
-    
-    with open('./criteria.json', 'r') as crit:
-        criteriaJSON = json.load(crit)
-        errors = driver.find_element(by=By.ID,value="AC_errors").find_elements(by=By.TAG_NAME,value="table")
+    try:
+        driver.get(aChecker)
+        driver.find_element(by=By.ID,value="checkuri").send_keys(address)
+        driver.find_element(by=By.ID,value="validate_uri").click()
+        
+        with open('./criteria.json', 'r') as crit:
+            criteriaJSON = json.load(crit)
+            errors = driver.find_element(by=By.ID,value="AC_errors").find_elements(by=By.TAG_NAME,value="table")
 
-        for i in errors:
-            # print(f'error {i} \n')
-            criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
-            if criteria != "":
-                html = i.find_element(by=By.TAG_NAME, value="code").text
-                if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'error' for x in criteriaArray):
-                    criteriaArray.append({
-                        "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
-                        "level": criteriaJSON[criteria.split()[2]]['level'],
-                        "link": criteriaJSON[criteria.split()[2]]['link'],
-                        "html":[html],
-                        "type":"error",
-                        "source": ["AChecker"]
-                    })
-                else:
-                    for x in criteriaArray:
-                        if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'error':
-                            if html not in x['html']:
-                                x['html'].append(html)
-                            if "AChecker" not in x['source']:
-                                x['source'].append("AChecker")
-                            break
+            for i in errors:
+                # print(f'error {i} \n')
+                criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
+                if criteria != "":
+                    html = i.find_element(by=By.TAG_NAME, value="code").text
+                    if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'error' for x in criteriaArray):
+                        criteriaArray.append({
+                            "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
+                            "level": criteriaJSON[criteria.split()[2]]['level'],
+                            "link": criteriaJSON[criteria.split()[2]]['link'],
+                            "html":[html],
+                            "type":"error",
+                            "source": ["AChecker"]
+                        })
+                    else:
+                        for x in criteriaArray:
+                            if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'error':
+                                if html not in x['html']:
+                                    x['html'].append(html)
+                                if "AChecker" not in x['source']:
+                                    x['source'].append("AChecker")
+                                break
 
-        driver.find_element(by=By.ID,value="AC_menu_likely_problems").click()
-        likely_problems = driver.find_element(by=By.ID,value="AC_likely_problems").find_elements(by=By.TAG_NAME,value="table")
+            driver.find_element(by=By.ID,value="AC_menu_likely_problems").click()
+            likely_problems = driver.find_element(by=By.ID,value="AC_likely_problems").find_elements(by=By.TAG_NAME,value="table")
 
 
-        for i in likely_problems:
-            # print(f'likely problem {i} \n')
-            criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
-            if criteria != "":
-                html = i.find_element(by=By.TAG_NAME, value="code").text
-                if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning' for x in criteriaArray):
-                    criteriaArray.append({
-                        "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
-                        "level": criteriaJSON[criteria.split()[2]]['level'],
-                        "link": criteriaJSON[criteria.split()[2]]['link'],
-                        "html":[html],
-                        "type":"warning",
-                        "source": ["AChecker"]
-                    })
-                else:
-                    for x in criteriaArray:
-                        if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning':
-                            if html not in x['html']:
-                                x['html'].append(html)
-                            if "AChecker" not in x['source']:
-                                x['source'].append("AChecker")
-                            break
+            for i in likely_problems:
+                # print(f'likely problem {i} \n')
+                criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
+                if criteria != "":
+                    html = i.find_element(by=By.TAG_NAME, value="code").text
+                    if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning' for x in criteriaArray):
+                        criteriaArray.append({
+                            "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
+                            "level": criteriaJSON[criteria.split()[2]]['level'],
+                            "link": criteriaJSON[criteria.split()[2]]['link'],
+                            "html":[html],
+                            "type":"warning",
+                            "source": ["AChecker"]
+                        })
+                    else:
+                        for x in criteriaArray:
+                            if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning':
+                                if html not in x['html']:
+                                    x['html'].append(html)
+                                if "AChecker" not in x['source']:
+                                    x['source'].append("AChecker")
+                                break
 
-        driver.find_element(by=By.ID,value="AC_menu_potential_problems").click()
-        potential_problems = driver.find_element(by=By.ID,value="AC_potential_problems").find_elements(by=By.TAG_NAME,value="table")
+            driver.find_element(by=By.ID,value="AC_menu_potential_problems").click()
+            potential_problems = driver.find_element(by=By.ID,value="AC_potential_problems").find_elements(by=By.TAG_NAME,value="table")
 
-        for i in potential_problems:
-            # print(f'potential problem {i} \n')
-            criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
-            if criteria != "":
-                html = i.find_element(by=By.TAG_NAME, value="code").text
-                if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning' for x in criteriaArray):
-                    criteriaArray.append({
-                        "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
-                        "level": criteriaJSON[criteria.split()[2]]['level'],
-                        "link": criteriaJSON[criteria.split()[2]]['link'],
-                        "html":[html],
-                        "type":"warning",
-                        "source": ["AChecker"]
-                    })
-                else:
-                    for x in criteriaArray:
-                        if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning':
-                            if html not in x['html']:
-                                x['html'].append(html)
-                            if "AChecker" not in x['source']:
-                                x['source'].append("AChecker")
-                            break
-    # print('termina ac \n')
-    queue.put(criteriaArray)
+            for i in potential_problems:
+                # print(f'potential problem {i} \n')
+                criteria = i.find_element(by=By.XPATH, value="./preceding::h4[1]").text
+                if criteria != "":
+                    html = i.find_element(by=By.TAG_NAME, value="code").text
+                    if not any(x['criteria'] == criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning' for x in criteriaArray):
+                        criteriaArray.append({
+                            "criteria":criteria.split(' ',2)[2].rsplit(' ', 1)[0],
+                            "level": criteriaJSON[criteria.split()[2]]['level'],
+                            "link": criteriaJSON[criteria.split()[2]]['link'],
+                            "html":[html],
+                            "type":"warning",
+                            "source": ["AChecker"]
+                        })
+                    else:
+                        for x in criteriaArray:
+                            if x['criteria'] ==  criteria.split(' ',2)[2].rsplit(' ', 1)[0] and x['type'] == 'warning':
+                                if html not in x['html']:
+                                    x['html'].append(html)
+                                if "AChecker" not in x['source']:
+                                    x['source'].append("AChecker")
+                                break
+    except:
+        # print('Error with AChecker')
+        pass
+    finally:
+        # print('termina ac \n')
+        queue.put(criteriaArray)
 
 def accessMonitorAnalisis(address, queue):
     # print('empieza am \n')
@@ -226,7 +229,7 @@ def accessMonitorAnalisis(address, queue):
                         
                                 break
     except Exception as e:
-        # traceback.print_exc()
+        # print('Error with AccessMonitor')
         pass
     finally:                        
         # print('termina am \n')
@@ -281,7 +284,10 @@ if __name__ == "__main__":
                         x['source'] += (cr['source'])
                     break
 
-    print(json.dumps(response,indent=4))
+    with open('./test.json', 'w') as f:
+        f.write(json.dumps(response,indent=4))
+        
+    sys.stdout.write(json.dumps(response,indent=4))
 
     # e_AM, w_AM = accessMonitorAnalisis(driver, address)
 

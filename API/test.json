@@ -1,0 +1,297 @@
+{
+    "score": "6.8",
+    "evaluation": [
+        {
+            "criteria": "3.1.1 Language of Page",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page",
+            "html": [
+                "<html><head><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>302 Moved</tit ..."
+            ],
+            "type": "error",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "1.3.1 Info and Relationships",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships",
+            "html": [
+                "<h1 class=\"I90TVb\" id=\"S3BnEe\">Antes de continuar para a Pesquisa Google</h1>",
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker",
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "1.3.3 Sensory Characteristics",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/sensory-characteristics",
+            "html": [
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.1 Bypass Blocks",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks",
+            "html": [
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.2 Page Titled",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled",
+            "html": [
+                "<title>302 Moved</title>"
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.4 Link Purpose (In Context)",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context",
+            "html": [
+                "<a href=\"https://www.google.com/?gws_rd=ssl\">here</a>"
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.5 Multiple Ways",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/multiple-ways",
+            "html": [
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.6 Headings and Labels",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels",
+            "html": [
+                "<h1>302 Moved</h1>"
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "3.2.3 Consistent Navigation",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/consistent-navigation",
+            "html": [
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "3.2.4 Consistent Identification",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/consistent-identification",
+            "html": [
+                "<body>\n<h1>302 Moved</h1>\nThe document has moved\n<a href=\"https://www.google.com/?gws_rd=ssl\">here</ ..."
+            ],
+            "type": "warning",
+            "source": [
+                "AChecker"
+            ]
+        },
+        {
+            "criteria": "2.4.1 Bypass Blocks",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks",
+            "html": [
+                "<a class=\"gb_d\" data-pid=\"23\" href=\"https://mail.google.com/mail/&amp;ogbl\" target=\"_top\">Gmail</a>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "2.1.1 Keyboard",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard",
+            "html": [
+                "<a class=\"gb_d\" data-pid=\"23\" href=\"https://mail.google.com/mail/&amp;ogbl\" target=\"_top\">Gmail</a>",
+                "<a class=\"gb_d\" data-pid=\"2\" href=\"https://www.google.pt/imghp?hl=pt-PT&amp;ogbl\" target=\"_top\">Imagens</a>",
+                "<a class=\"gb_A\" aria-label=\"Google Apps\" href=\"https://www.google.pt/intl/pt-PT/about/products\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"></a>",
+                "<a class=\"gb_1 gb_2 gb_7d gb_7c\" href=\"https://accounts.google.com/ServiceLogin?hl=pt-PT&amp;passive=true&amp;continue=https://www.google.com/%3Fgws_rd%3Dssl&amp;ec=GAZAmgQ\" target=\"_top\">Entrar</a>",
+                "<input class=\"gLFyf gsfi\" jsaction=\"paste:puy29d;\" maxlength=\"2048\" name=\"q\" type=\"text\" aria-autocomplete=\"both\" aria-haspopup=\"false\" autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" autofocus=\"\" role=\"combobox\" spellcheck=\"false\" title=\"Pesquisar\" value=\"\" aria-label=\"Pesq.\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ39UDCAQ\">",
+                "<div jscontroller=\"Y9t9Sc\" class=\"Umvnrc\" aria-label=\"Ferramentas de introdu\u00e7\u00e3o\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\"></div>",
+                "<div jscontroller=\"unV4T\" class=\"XDyW0e\" aria-label=\"Pesquisa por voz\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQvs8DCAY\"></div>",
+                "<input class=\"gNO89b\" value=\"Pesquisa Google\" aria-label=\"Pesquisa Google\" name=\"btnK\" role=\"button\" tabindex=\"0\" type=\"submit\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ4dUDCAs\">",
+                "<input class=\"RNmpXc\" value=\"Sinto-me com sorte\" aria-label=\"Sinto-me com sorte\" name=\"btnI\" type=\"submit\" jsaction=\"trigger.kWlxhc\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ19QECAw\">",
+                "<a class=\"pHiOh\" href=\"https://about.google/?utm_source=google-PT&amp;utm_medium=referral&amp;utm_campaign=hp-footer&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://about.google/%3Futm_source%3Dgoogle-PT%26utm_medium%3Dreferral%26utm_campaign%3Dhp-footer%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkNQCCA0\">Sobre</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/intl/pt-PT_pt/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpafooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/intl/pt-PT_pt/ads/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpafoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpafooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkdQCCA4\">Publicidade</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpbfooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/services/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpbfoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpbfooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQktQCCA8\">Neg\u00f3cios</a>",
+                "<a class=\"pHiOh\" href=\"https://google.com/search/howsearchworks/?fg=1\"> Como funciona a Pesquisa </a>",
+                "<a class=\"pHiOh\" href=\"https://sustainability.google/intl/pt-PT/carbon-free/?utm_source=googlehpfooter&amp;utm_medium=housepromos&amp;utm_campaign=bottom-footer&amp;utm_content=\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://sustainability.google/intl/pt-PT/carbon-free/%3Futm_source%3Dgooglehpfooter%26utm_medium%3Dhousepromos%26utm_campaign%3Dbottom-footer%26utm_content%3D&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQiM8HCBA\">Neutraliza\u00e7\u00e3o de emiss\u00f5es de carbono desde 2007</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/privacy?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/privacy%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8awCCBE\">Privacidade</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/terms?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/terms%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8qwCCBI\">Termos</a>",
+                "<div jsname=\"oYxtQd\" class=\"rIbAWc\" aria-expanded=\"false\" aria-haspopup=\"true\" role=\"button\" tabindex=\"0\" jsaction=\"WFrRFb;keydown:uYT2Vb\">Defini\u00e7\u00f5es</div>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "2.4.7 Focus Visible",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible",
+            "html": [
+                "<a class=\"gb_d\" data-pid=\"23\" href=\"https://mail.google.com/mail/&amp;ogbl\" target=\"_top\">Gmail</a>",
+                "<a class=\"gb_d\" data-pid=\"2\" href=\"https://www.google.pt/imghp?hl=pt-PT&amp;ogbl\" target=\"_top\">Imagens</a>",
+                "<a class=\"gb_A\" aria-label=\"Google Apps\" href=\"https://www.google.pt/intl/pt-PT/about/products\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"></a>",
+                "<a class=\"gb_1 gb_2 gb_7d gb_7c\" href=\"https://accounts.google.com/ServiceLogin?hl=pt-PT&amp;passive=true&amp;continue=https://www.google.com/%3Fgws_rd%3Dssl&amp;ec=GAZAmgQ\" target=\"_top\">Entrar</a>",
+                "<input class=\"gLFyf gsfi\" jsaction=\"paste:puy29d;\" maxlength=\"2048\" name=\"q\" type=\"text\" aria-autocomplete=\"both\" aria-haspopup=\"false\" autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" autofocus=\"\" role=\"combobox\" spellcheck=\"false\" title=\"Pesquisar\" value=\"\" aria-label=\"Pesq.\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ39UDCAQ\">",
+                "<div jscontroller=\"Y9t9Sc\" class=\"Umvnrc\" aria-label=\"Ferramentas de introdu\u00e7\u00e3o\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\"></div>",
+                "<div jscontroller=\"unV4T\" class=\"XDyW0e\" aria-label=\"Pesquisa por voz\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQvs8DCAY\"></div>",
+                "<input class=\"gNO89b\" value=\"Pesquisa Google\" aria-label=\"Pesquisa Google\" name=\"btnK\" role=\"button\" tabindex=\"0\" type=\"submit\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ4dUDCAs\">",
+                "<input class=\"RNmpXc\" value=\"Sinto-me com sorte\" aria-label=\"Sinto-me com sorte\" name=\"btnI\" type=\"submit\" jsaction=\"trigger.kWlxhc\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ19QECAw\">",
+                "<a class=\"pHiOh\" href=\"https://about.google/?utm_source=google-PT&amp;utm_medium=referral&amp;utm_campaign=hp-footer&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://about.google/%3Futm_source%3Dgoogle-PT%26utm_medium%3Dreferral%26utm_campaign%3Dhp-footer%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkNQCCA0\">Sobre</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/intl/pt-PT_pt/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpafooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/intl/pt-PT_pt/ads/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpafoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpafooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkdQCCA4\">Publicidade</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpbfooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/services/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpbfoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpbfooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQktQCCA8\">Neg\u00f3cios</a>",
+                "<a class=\"pHiOh\" href=\"https://google.com/search/howsearchworks/?fg=1\"> Como funciona a Pesquisa </a>",
+                "<a class=\"pHiOh\" href=\"https://sustainability.google/intl/pt-PT/carbon-free/?utm_source=googlehpfooter&amp;utm_medium=housepromos&amp;utm_campaign=bottom-footer&amp;utm_content=\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://sustainability.google/intl/pt-PT/carbon-free/%3Futm_source%3Dgooglehpfooter%26utm_medium%3Dhousepromos%26utm_campaign%3Dbottom-footer%26utm_content%3D&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQiM8HCBA\">Neutraliza\u00e7\u00e3o de emiss\u00f5es de carbono desde 2007</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/privacy?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/privacy%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8awCCBE\">Privacidade</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/terms?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/terms%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8qwCCBI\">Termos</a>",
+                "<div jsname=\"oYxtQd\" class=\"rIbAWc\" aria-expanded=\"false\" aria-haspopup=\"true\" role=\"button\" tabindex=\"0\" jsaction=\"WFrRFb;keydown:uYT2Vb\">Defini\u00e7\u00f5es</div>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "3.2.1 On Focus",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/on-focus",
+            "html": [
+                "<a class=\"gb_d\" data-pid=\"23\" href=\"https://mail.google.com/mail/&amp;ogbl\" target=\"_top\">Gmail</a>",
+                "<a class=\"gb_d\" data-pid=\"2\" href=\"https://www.google.pt/imghp?hl=pt-PT&amp;ogbl\" target=\"_top\">Imagens</a>",
+                "<a class=\"gb_A\" aria-label=\"Google Apps\" href=\"https://www.google.pt/intl/pt-PT/about/products\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"></a>",
+                "<a class=\"gb_1 gb_2 gb_7d gb_7c\" href=\"https://accounts.google.com/ServiceLogin?hl=pt-PT&amp;passive=true&amp;continue=https://www.google.com/%3Fgws_rd%3Dssl&amp;ec=GAZAmgQ\" target=\"_top\">Entrar</a>",
+                "<input class=\"gLFyf gsfi\" jsaction=\"paste:puy29d;\" maxlength=\"2048\" name=\"q\" type=\"text\" aria-autocomplete=\"both\" aria-haspopup=\"false\" autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" autofocus=\"\" role=\"combobox\" spellcheck=\"false\" title=\"Pesquisar\" value=\"\" aria-label=\"Pesq.\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ39UDCAQ\">",
+                "<div jscontroller=\"Y9t9Sc\" class=\"Umvnrc\" aria-label=\"Ferramentas de introdu\u00e7\u00e3o\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\"></div>",
+                "<div jscontroller=\"unV4T\" class=\"XDyW0e\" aria-label=\"Pesquisa por voz\" role=\"button\" tabindex=\"0\" jsaction=\"h5M12e;rcuQ6b:npT2md\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQvs8DCAY\"></div>",
+                "<input class=\"gNO89b\" value=\"Pesquisa Google\" aria-label=\"Pesquisa Google\" name=\"btnK\" role=\"button\" tabindex=\"0\" type=\"submit\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ4dUDCAs\">",
+                "<input class=\"RNmpXc\" value=\"Sinto-me com sorte\" aria-label=\"Sinto-me com sorte\" name=\"btnI\" type=\"submit\" jsaction=\"trigger.kWlxhc\" data-ved=\"0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ19QECAw\">",
+                "<a class=\"pHiOh\" href=\"https://about.google/?utm_source=google-PT&amp;utm_medium=referral&amp;utm_campaign=hp-footer&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://about.google/%3Futm_source%3Dgoogle-PT%26utm_medium%3Dreferral%26utm_campaign%3Dhp-footer%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkNQCCA0\">Sobre</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/intl/pt-PT_pt/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpafooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/intl/pt-PT_pt/ads/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpafoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpafooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQkdQCCA4\">Publicidade</a>",
+                "<a class=\"pHiOh\" href=\"https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpbfooter&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://www.google.com/services/%3Fsubid%3Dww-ww-et-g-awa-a-g_hpbfoot1_1!o2%26utm_source%3Dgoogle.com%26utm_medium%3Dreferral%26utm_campaign%3Dgoogle_hpbfooter%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQktQCCA8\">Neg\u00f3cios</a>",
+                "<a class=\"pHiOh\" href=\"https://google.com/search/howsearchworks/?fg=1\"> Como funciona a Pesquisa </a>",
+                "<a class=\"pHiOh\" href=\"https://sustainability.google/intl/pt-PT/carbon-free/?utm_source=googlehpfooter&amp;utm_medium=housepromos&amp;utm_campaign=bottom-footer&amp;utm_content=\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://sustainability.google/intl/pt-PT/carbon-free/%3Futm_source%3Dgooglehpfooter%26utm_medium%3Dhousepromos%26utm_campaign%3Dbottom-footer%26utm_content%3D&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQiM8HCBA\">Neutraliza\u00e7\u00e3o de emiss\u00f5es de carbono desde 2007</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/privacy?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/privacy%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8awCCBE\">Privacidade</a>",
+                "<a class=\"pHiOh\" href=\"https://policies.google.com/terms?hl=pt-PT&amp;fg=1\" ping=\"/url?sa=t&amp;rct=j&amp;source=webhp&amp;url=https://policies.google.com/terms%3Fhl%3Dpt-PT%26fg%3D1&amp;ved=0ahUKEwiuzrjuyfv3AhWQa8AKHeZLBWYQ8qwCCBI\">Termos</a>",
+                "<div jsname=\"oYxtQd\" class=\"rIbAWc\" aria-expanded=\"false\" aria-haspopup=\"true\" role=\"button\" tabindex=\"0\" jsaction=\"WFrRFb;keydown:uYT2Vb\">Defini\u00e7\u00f5es</div>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "1.4.3 Contrast (Minimum)",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum",
+            "html": [
+                "<div class=\"uU7dJb\">Portugal</div>",
+                "<span class=\"ktLKi\">Neutraliza\u00e7\u00e3o de emiss\u00f5es de carbono desde 2007</span>",
+                "<div jsname=\"LgbsSe\" class=\"ayzqOc pHiOh\" aria-controls=\"_LJ2OYq6INpDXgQbml5WwBg1\" aria-haspopup=\"true\">Defini\u00e7\u00f5es</div>",
+                "<div class=\"FYXSad\">pt</div>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "4.1.1 Parsing",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/parsing",
+            "html": [],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "1.3.1 Info and Relationships",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships",
+            "html": [
+                "<center> </center>",
+                "<center> </center>"
+            ],
+            "type": "error",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "2.4.10 Section Headings",
+            "level": "AAA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/section-headings",
+            "html": [
+                "<h1 class=\"I90TVb\" id=\"S3BnEe\">Antes de continuar para a Pesquisa Google</h1>"
+            ],
+            "type": "warning",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "1.4.4 Resize text",
+            "level": "AA",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/resize-text",
+            "html": [
+                "<svg class=\"Hv5UEb\" height=\"30\" viewBox=\"0 0 30 30\" width=\"30\" xmlns=\"http://www.w3.org/2000/svg\"></svg>"
+            ],
+            "type": "warning",
+            "source": [
+                "AccessMonitor"
+            ]
+        },
+        {
+            "criteria": "3.1.1 Language of Page",
+            "level": "A",
+            "link": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page",
+            "html": [
+                "<html itemscope=\"\" itemtype=\"http://schema.org/WebPage\" lang=\"pt-PT\"><head></head><body></body></html>"
+            ],
+            "type": "warning",
+            "source": [
+                "AccessMonitor"
+            ]
+        }
+    ]
+}

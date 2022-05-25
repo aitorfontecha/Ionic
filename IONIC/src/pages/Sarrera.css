@@ -76,12 +76,14 @@
   padding: 30px;
 }
 
-
-
 ion-content{
-  --ion-background-color:aliceblue;
+  --background:var(--ion-content-background);
 } 
 
-ion-grid{
-  --ion-background-color: white;
+
+ion-card-header.header{
+  --background:var(--ion-header-background);
 }
+/* ion-grid{
+  --background: white;
+} */

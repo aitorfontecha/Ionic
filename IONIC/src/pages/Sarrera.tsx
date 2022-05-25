@@ -5,7 +5,9 @@ import error from '../assets/error.svg'
 import warning from '../assets/warning.svg'
 import link from '../assets/link.svg'
 import analyse from '../assets/analyse.svg'
+import analyseWhite from  '../assets/analyse-white.svg'
 import dark from '../assets/dark.svg'
+import darkWhite from '../assets/dark-white.svg'
 import loadingGif from '../assets/loading.gif'
 import analysingGif from '../assets/analysing.gif'
 import { search } from 'ionicons/icons';
@@ -14,15 +16,30 @@ import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } fro
 import 'react-circular-progressbar/dist/styles.css';
 
 const Sarrera: React.FC = () => {
-
+  
   function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
+  
+  const toggleDarkModeHandler = () => {
+    document.body.classList.toggle("dark");
+    setDark(!isDark)
+    if (isDark){
+      
+    } else {
+      
+    }
+  };
+  
+  function logoType() {
+    if (isDark){
+      return [analyse, dark]
+    } else {
+      return [analyseWhite, darkWhite]
+    }
+  }
+  
 
-  // const toggleDarkModeHandler = () => {
-  //   document.body.classList.toggle("dark");
-  //   setDark(true)
-  // };
 
   function getUrl() {
     let queryParams = new URLSearchParams(window.location.search);
@@ -40,16 +57,20 @@ const Sarrera: React.FC = () => {
   const [items, setItems] = React.useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [totalElements, setTotalElements] = useState(0);
-  const [score, setScore] = useState(0);
-  // const [isDark,setDark] = useState(false)
+  const [score, setScore] = useState(-1);
+  const [isDark,setDark] = useState(false)
   React.useEffect(() => {
     if (getUrl() != '') {
       sendRequest()
     }
-    // if (isDark){
-    //   toggleDarkModeHandler()
-    // }
+    if (localStorage.getItem('isDark') === 'true'){
+      toggleDarkModeHandler()
+    }
   }, []);
+
+  useEffect(()=>{
+    localStorage.setItem('isDark', isDark.toString())
+  },[isDark])
 
   const sendRequest = async () => {
     try {
@@ -71,8 +92,7 @@ const Sarrera: React.FC = () => {
             
           }
         });
-        document.getElementById('loading')?.classList.remove('animatedLoading')
-        document.getElementById('loading')?.classList.add('coverLoading')
+        hideLoading()
         await delay(200);
         setLoading(false);
     } catch (e)
@@ -82,10 +102,22 @@ const Sarrera: React.FC = () => {
     }
   };
 
-  async function hideEvaluation(){
+  function hideEvaluation(){
     document.getElementById('eval')?.classList.remove('animatedEvaluation')
     document.getElementById('eval')?.classList.add('coverEvaluation')
   }
+
+  function hideLoading(){
+    document.getElementById('loading')?.classList.remove('animatedLoading')
+    document.getElementById('loading')?.classList.add('coverLoading')
+  }
+
+  async function hide(){
+    hideEvaluation()
+    hideLoading()
+    window.location.href = "/";
+  }
+
 
   function isError(criteria:any){
     if (criteria.type === 'error') {
@@ -194,9 +226,9 @@ function render(){
                           <IonCol>
                             <h3>Analysed Elements: {totalElements}</h3>
                           </IonCol>
-                          <IonCol>
+                          {/* <IonCol>
                           <h4>Correct elements: <IonText class='correct'>{totalElements - elementNumber()[0]}</IonText></h4>
-                          </IonCol>
+                          </IonCol> */}
                           <IonCol>
                             <h4>Errors: <IonText class='error'>{elementNumber()[1]}</IonText></h4>
                           </IonCol>
@@ -308,24 +340,24 @@ function render(){
   return (
     <IonPage>
       <IonHeader>
-        <IonCardHeader>
+        <IonCardHeader class='header'>
           <IonToolbar color='primary'>
             <IonButtons slot='start'>
-            <IonButton href='/'  onClick={() => hideEvaluation()}>
-            <img src={analyse} height='35px'></img>
+            <IonButton  onClick={() => {return hide()}}>
+            <img src={logoType()[0]} height='35px'></img>
             </IonButton>
             </IonButtons>
-            {/* <IonButtons slot='end'>
+            <IonButtons slot='end'>
               <IonButton onClick={toggleDarkModeHandler}>
-              <img src={dark} height='35px'></img>
+              <img src={logoType()[1]} height='35px'></img>
               </IonButton>
-            </IonButtons> */}
+            </IonButtons>
             <IonTitle>SGTA Scraping</IonTitle>
           </IonToolbar>
           <form method='GET' onSubmit={() =>hideEvaluation()}>
             <IonItem>
               <h3><IonLabel><IonText color='primary'>Web page</IonText></IonLabel></h3>
-              <h3><IonInput name='site' placeholder="https://" type="text"></IonInput></h3>
+              <h3><IonInput name='site' placeholder="https://" type="text" size={100}></IonInput></h3>
               <IonButton type="submit" color="primary" expand="block" slot='end' size="default">
                 <IonIcon icon={search} slot='end'></IonIcon>
                 Analyse
@@ -357,3 +389,4 @@ function render(){
 };
 
 export default Sarrera;
+

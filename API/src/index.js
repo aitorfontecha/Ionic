@@ -15,11 +15,14 @@ const screen = {
     width: 1920,
     height: 1080
 };
-  
-const driver = new webdriver.Builder()
-.forBrowser('chrome')
-.setChromeOptions(new chrome.Options().headless().windowSize(screen))
-.build();
+let driver
+const builder = new webdriver.Builder().forBrowser('chrome')
+let options = new chrome.Options();
+options.headless();                             // run headless Chrome
+options.addArguments(['--headless']);
+options.addArguments(['--no-sandbox']);    
+driver = builder.setChromeOptions(options).build();
+
 
 // const driver = new webdriver.Builder()
 // .forBrowser('chrome')
@@ -45,6 +48,7 @@ app.get('/analyze/:site/', function (req, res) {
             let script = JSON.parse(data)['scripts']['python_scraping']
             const pythonProcess = spawn('python',[script, webpage]);
             pythonProcess.stdout.on('data', (data) => { 
+                console.log("python done")
                 // fs.writeFileSync('./testPy.json','test')
                 // console.log(String.fromCharCode.apply(null, data));
                 // fs.writeFileSync('./testPy.json', String.fromCharCode.apply(null, data));
@@ -140,7 +144,10 @@ app.get('/analyze/:site/', function (req, res) {
         });
         
         
-        pa11y(webpage).then((results) => {
+        pa11y(webpage,{
+                "chromeLaunchConfig": {
+                    "args": ["--no-sandbox"]
+                }}).then((results) => {
             fs.readFile('./criteria.json',(err, data)=>{
                 console.log("Empieza pa11y");
                 let criteriaFile = JSON.parse(data)

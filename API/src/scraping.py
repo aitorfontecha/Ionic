@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import sys
 import json
 import threading, queue
+import chromedriver_autoinstaller
+
 
 aChecker = "https://achecker.achecks.ca/checker/index.php"
 accessMonitor = "https://accessmonitor.acessibilidade.gov.pt/"
@@ -20,9 +22,11 @@ def updateCriteriaDict(driver):
 
 def configDriver():
     options = webdriver.ChromeOptions()
-    options.add_argument('headless')
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--window-size=1920,1080')
-    driver = webdriver.Chrome("chromedriver.exe",options=options)
+    driver = webdriver.Chrome(options=options)
     return driver
 
 def setSiteToAnalize():
@@ -132,7 +136,7 @@ def accessMonitorAnalisis(address, queue):
     # print('empieza am \n')
     driver = configDriver()
     driver.get(accessMonitor)
-    driver.find_element(by=By.XPATH, value='//button[@lang="en"]').click()
+    #driver.find_element(by=By.XPATH, value='//button[@lang="en"]').click()
     driver.find_element(by=By.ID, value="url").send_keys(address)
     driver.find_element(by=By.NAME, value="url_validate").submit()
 
@@ -254,6 +258,7 @@ if __name__ == "__main__":
     response = {"score":0,"evaluation":[]}
 
     # address = setSiteToAnalize()
+    chromedriver_autoinstaller.install()
     aCheckerQueue = queue.Queue()
     accessMonitorQueue = queue.Queue()
 

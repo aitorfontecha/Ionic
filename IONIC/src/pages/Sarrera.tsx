@@ -24,11 +24,6 @@ const Sarrera: React.FC = () => {
   const toggleDarkModeHandler = () => {
     document.body.classList.toggle("dark");
     setDark(!isDark)
-    if (isDark){
-      
-    } else {
-      
-    }
   };
   
   function logoType() {
@@ -45,8 +40,6 @@ const Sarrera: React.FC = () => {
     let queryParams = new URLSearchParams(window.location.search);
     let site = queryParams.get('site');
     if (site) {
-      console.log(encodeURI(site))
-      
       return encodeURIComponent(site.replace('https://',''))
     } else {
       return ''
@@ -59,6 +52,7 @@ const Sarrera: React.FC = () => {
   const [totalElements, setTotalElements] = useState(0);
   const [score, setScore] = useState(-1);
   const [isDark,setDark] = useState(false)
+  const [status, setStatus] = useState('error')
   React.useEffect(() => {
     if (getUrl() != '') {
       sendRequest()
@@ -76,25 +70,22 @@ const Sarrera: React.FC = () => {
     try {
       console.log('requesting....')
       setLoading(true);
-  
-      const data = await axios
-        .get(`http://127.0.0.1:3000/analyze/${getUrl()}/`)
-        .then(res => {
-          console.log('requested!!');
-          console.log(res);
-          if (res.data.result === 'success') {
-            console.log(items.length);
-            setTotalElements(res.data.totalElements)
-            setItems(res.data.evaluation)
-            setScore(res.data.score)
-          } else {
-            console.log(items.length);
+        await axios
+          .get(`http://127.0.0.1:3000/analyze/${getUrl()}/`)
+          .then(res => {
+            console.log('requested!!');
+            console.log(res.data);
+            setStatus(res.data.result)
             
-          }
-        });
-        hideLoading()
-        await delay(200);
-        setLoading(false);
+            if (res.data.result === 'success') {
+              setTotalElements(res.data.totalElements)
+              setItems(res.data.evaluation)
+              setScore(res.data.score)
+            }
+          });
+          hideLoading()
+          await delay(200);
+          setLoading(false);
     } catch (e)
     {
       console.log(e);
@@ -186,7 +177,7 @@ const Sarrera: React.FC = () => {
 
 function render(){
   if (getUrl() != ''){
-    if(items.length){
+    if(status === 'success'){
 
       return(
         <IonGrid class='animatedEvaluation' id='eval'>
@@ -313,12 +304,22 @@ function render(){
           </IonRow>
         </IonGrid>
       )
-    } else {
+    } else if (status === 'error') {
       return (
         <IonGrid>
           <IonRow>
             <IonCol class="ion-text-center">
-              <IonText class='error'><h1>We are sorry, something went wrong with the API. Try again later or try analysing a different page.</h1></IonText>
+              <IonText class='error'><h1>We are sorry, something went wrong with the API, if you can try restarting it</h1></IonText>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      )
+    } else if (status === 'not found'){
+      return (
+        <IonGrid>
+          <IonRow>
+            <IonCol class="ion-text-center">
+              <IonText><h1>The provided webpage does not exist, try with another URL</h1></IonText>
             </IonCol>
           </IonRow>
         </IonGrid>

@@ -49,8 +49,6 @@ COPY ./startup.sh .
 RUN chmod 777 ./startup.sh
 EXPOSE 3000
 EXPOSE 8100
-EXPOSE 80
-EXPOSE 443
 
 
 CMD ./startup.sh

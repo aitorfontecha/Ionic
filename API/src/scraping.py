@@ -12,12 +12,6 @@ aChecker = "https://achecker.achecks.ca/checker/index.php"
 accessMonitor = "https://accessmonitor.acessibilidade.gov.pt/"
 wcag_criteria = "https://www.w3.org/TR/WCAG21/"
 
-def updateCriteriaDict(driver):
-    driver.get(wcag_criteria)
-    criteria_ids = driver.find_element(by=By.TAG_NAME, value="nav").find_elements(by=By.TAG_NAME, value="a")
-    for cr in criteria_ids[3:]:
-        if cr.text.split("\n")[0].count('.') >=2 and int(cr.text.split("\n")[0].split('.')[0]) in range(1,5):
-            criteria_dic[cr.text.split("\n")[0]] = cr.text.split("\n")[1] 
 
 
 def configDriver():
@@ -28,14 +22,6 @@ def configDriver():
     options.add_argument('--window-size=1920,1080')
     driver = webdriver.Chrome(options=options)
     return driver
-
-def setSiteToAnalize():
-    address="google.com"
-    # address = input("Enter an address: ")
-    if not address.startswith("https://"):
-        address = "https://" + address
-    return address
-    
 
 def aCheckerAnalisis(address, queue):
     # print('empieza ac \n')
@@ -288,9 +274,6 @@ if __name__ == "__main__":
                     if cr['source'] not in x['source']:
                         x['source'] += (cr['source'])
                     break
-
-    with open('./test.json', 'w') as f:
-        f.write(json.dumps(response,indent=4))
         
     sys.stdout.write(json.dumps(response,indent=4))
 

@@ -19,18 +19,11 @@ const screen = {
 let driver
 const builder = new webdriver.Builder().forBrowser('chrome')
 let options = new chrome.Options();
-options.headless();                             // run headless Chrome
+options.headless();                             
 options.addArguments(['--headless']);
 options.addArguments(['--no-sandbox']);    
 driver = builder.setChromeOptions(options).build();
 
-
-// const driver = new webdriver.Builder()
-// .forBrowser('chrome')
-// .build();
-
-
-//const driver = new WebDriver.Builder().forBrowser('chrome').build()
 
 app.use(cors())
 app.set('json spaces', 2)
@@ -49,14 +42,11 @@ app.get('/analyze/:site/', function (req, res) {
                 let analysis = {'result':'success', 'totalElements':0, 'score':-1,'evaluation':[]};
                 
                 fs.readFile('./config.json',(err, data)=>{
-                    console.log('Empieza python');
+                    //console.log('Empieza python');
                     let script = JSON.parse(data)['scripts']['python_scraping']
                     const pythonProcess = spawn('python',[script, webpage]);
                     pythonProcess.stdout.on('data', (data) => { 
-                        console.log("python done")
-                        // fs.writeFileSync('./testPy.json','test')
-                        // console.log(String.fromCharCode.apply(null, data));
-                        // fs.writeFileSync('./testPy.json', String.fromCharCode.apply(null, data));
+                        //console.log("python done")
                         try {
                             pythonArray = JSON.parse(data.toString());
                             analysis.score = pythonArray.score
@@ -77,13 +67,11 @@ app.get('/analyze/:site/', function (req, res) {
                             
                         } catch (error) {
                             console.log(error);
-                            console.log("Terrible problems python");
-                            // analysis = {'result':'error'}
                         } finally {
-                            console.log("termina python");
+                            //console.log("termina python");
                             callBacks ++;
                             if (callBacks === 3) {
-                                console.log(analysis);
+                                //console.log(analysis);
                                 res.json(analysis)
                             }
                         }
@@ -91,7 +79,7 @@ app.get('/analyze/:site/', function (req, res) {
                 })
             
                 driver.get(`https://${webpage}`).then(() => {
-                    console.log("Empieza axe");
+                    //console.log("Empieza axe");
                     driver.findElements(By.xpath('//*')).then((elements)=>{
                         analysis.totalElements = elements.length
                     })
@@ -140,9 +128,9 @@ app.get('/analyze/:site/', function (req, res) {
                             }
                         });
                         callBacks ++;
-                        console.log("Termina axe");
+                        //console.log("Termina axe");
                         if (callBacks === 3) {
-                            console.log(analysis);
+                            //console.log(analysis);
                             res.json(analysis)
                         }
                     });
@@ -154,7 +142,7 @@ app.get('/analyze/:site/', function (req, res) {
                             "args": ["--no-sandbox"]
                         }}).then((results) => {
                     fs.readFile('./criteria.json',(err, data)=>{
-                        console.log("Empieza pa11y");
+                        //console.log("Empieza pa11y");
                         let criteriaFile = JSON.parse(data)
                         let localData = new Map()
                         results.issues.forEach(element => {
@@ -182,16 +170,16 @@ app.get('/analyze/:site/', function (req, res) {
                                 }
                             }
                         });
-                        console.log("Termina pa11y");
+                        //console.log("Termina pa11y");
                         callBacks++;
                         if (callBacks === 3) {
-                            console.log(analysis);
+                            //console.log(analysis);
                             res.json(analysis)
                         }
                     });
                 });
                 if (callBacks === 3) {
-                    console.log(analysis);
+                    //console.log(analysis);
                     res.json(analysis)
                 }
             } else {
@@ -203,7 +191,7 @@ app.get('/analyze/:site/', function (req, res) {
             res.json(analysis)
         })
     } catch (error) {
-        console.log("Terrible problems everywhere: "+error);
+        console.log(error);
         analysis = {'result':'error'}
         res.json(analysis)
     }

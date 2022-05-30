@@ -243,7 +243,6 @@ if __name__ == "__main__":
     
     response = {"score":0,"evaluation":[]}
 
-    # address = setSiteToAnalize()
     chromedriver_autoinstaller.install()
     aCheckerQueue = queue.Queue()
     accessMonitorQueue = queue.Queue()
@@ -276,19 +275,6 @@ if __name__ == "__main__":
                     break
         
     sys.stdout.write(json.dumps(response,indent=4))
-
-    # e_AM, w_AM = accessMonitorAnalisis(driver, address)
-
-    # resJson = {}
-
-    # resJson['AChecker_errors'] = e_AC
-    # resJson['AChecker_likely_problems'] = lp_AC
-    # resJson['AChecker_potential_problems'] = pp_AC
-
-    # resJson['AccessMonitor_errors'] = e_AM
-    # resJson['AccessMonitor_warnings'] = w_AM
-
-    # print(json.dumps(resJson,indent=4))
 
     sys.stdout.flush()
 
